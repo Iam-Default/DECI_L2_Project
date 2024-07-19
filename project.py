@@ -1,9 +1,9 @@
 import time
 import random
 
-def print_pause(message, pause=1):
+def print_pause(message):
     print(message)
-    time.sleep(pause)
+    time.sleep(1)
 
 def intro():
     print_pause("You are an astronaut aboard the International Space Station (ISS).")
