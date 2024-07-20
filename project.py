@@ -5,6 +5,16 @@ def print_pause(message):
     print(message)
     time.sleep(1)
 
+def print_score(score):
+    print("Your current score is:", score)
+
+def valid_input(prompt, options):
+    choice = input(prompt).lower()
+    while choice not in options:
+        print_pause("Invalid choice. Please try again.")
+        choice = input(prompt).lower()
+    return choice
+
 def intro():
     print_pause("You are an astronaut aboard the International Space Station (ISS).")
     print_pause("Suddenly, the alarms go off and you realize the ISS is being hacked.")
@@ -17,37 +27,33 @@ def generate_password():
 
 def main_hallway():
     global score
+    print_score(score)
     print_pause("\nYou are in the main hallway of the ISS.")
     print_pause("You see a computer terminal and a toolbox.")
-    choice = input("Do you want to check the (computer) terminal or the (toolbox)? ").lower()
+    choice = valid_input("Do you want to check the (computer) terminal or the (toolbox)? ", ["computer", "toolbox"])
     if choice == 'computer':
         score += 10
         computer_terminal()
-    elif choice == 'toolbox':
+    else:
         score += 5
         toolbox()
-    else:
-        print_pause("Invalid choice, try again.")
-        main_hallway()
 
 def computer_terminal():
     global password, score
     print_pause("\nYou approach the computer terminal.")
     print_pause("The screen displays a message: 'Unauthorized access detected. System lockdown in progress.'")
-    choice = input("Do you want to try to (hack) the system or (call) for help? ").lower()
+    choice = valid_input("Do you want to try to (hack) the system or (call) for help? ", ["hack", "call"])
     if choice == 'hack':
         score += 10
         hack_system()
-    elif choice == 'call':
+    else:
         score += 5
         call_for_help()
-    else:
-        print_pause("Invalid choice, try again.")
-        computer_terminal()
 
 def toolbox():
     global score
     global multitool
+    print_score(score)
     print_pause("\nYou open the toolbox and find various tools.")
     print_pause("You find a multitool, and a piece of paper that that says: The Password is " + password)
     choice = input("Do you want to take the multitool?(yes)/(no) ").lower()
@@ -66,6 +72,7 @@ def toolbox():
 
 def hack_system():
     global password, score
+    print_score(score)
     print_pause("\nYou attempt to hack the system.")
     print_pause("You need to enter a password to proceed.")
     user_password = input("Enter the password: ")
@@ -81,6 +88,7 @@ def hack_system():
 
 def call_for_help():
     global score
+    print_score(score)
     print_pause("\nYou try to call for help.")
     print_pause("You reach Mission Control and explain the situation.")
     print_pause("Mission Control instructs you to find the manual override in the control room.")
@@ -91,19 +99,17 @@ def control_room():
     global score
     print_pause("\nYou head to the control room.")
     print_pause("You see the manual override lever and a panel with wires.")
-    choice = input("Do you want to pull the (lever) or fix the (panel)? ").lower()
+    choice = valid_input("Do you want to pull the (lever) or fix the (panel)? ", ["lever", "panel"])
     if choice == 'lever':
-        score += 5
+        score += 15
         pull_lever()
-    elif choice == 'panel':
+    else:
         score += 15
         fix_panel()
-    else:
-        print_pause("Invalid choice, try again.")
-        control_room()
 
 def pull_lever():
     global score
+    print_score(score)
     print_pause("\nYou pull the manual override lever.")
     print_pause("The system reboots and you lose control of the ISS.")
     print_pause("The ISS falls to earth and you die.")
@@ -114,6 +120,7 @@ def pull_lever():
 def fix_panel():
     global score
     global multitool
+    print_score(score)
     print_pause("\nYou open the panel and see a tangle of wires.")
     print_pause("You need to reconnect the wires correctly to regain control.")
     if multitool == True:
