@@ -1,13 +1,16 @@
 import time
 import random
 
+# Function to print a message with a 1-second pause
 def print_pause(message):
     print(message)
     time.sleep(1)
 
+# Function to print the player's current score
 def print_score(score):
     print("Your current score is:", score)
 
+# Function to validate user input against a list of options
 def valid_input(prompt, options):
     choice = input(prompt).lower()
     while choice not in options:
@@ -15,16 +18,19 @@ def valid_input(prompt, options):
         choice = input(prompt).lower()
     return choice
 
+# Function to print the introduction and game setup
 def intro():
     print_pause("You are an astronaut aboard the International Space Station (ISS).")
     print_pause("Suddenly, the alarms go off and you realize the ISS is being hacked.")
     print_pause("You must act quickly to regain control before it crashes into Earth.")
     print_pause("You will earn points for making progress and solving challenges.")
 
+# Function to generate a random password from a list
 def generate_password():
     passwords = ["orbit", "galaxy", "cosmos", "astronaut", "gravity"]
     return random.choice(passwords)
 
+# Function for the main hallway scene
 def main_hallway():
     global score
     print_score(score)
@@ -38,6 +44,7 @@ def main_hallway():
         score += 5
         toolbox()
 
+# Function for the computer terminal scene
 def computer_terminal():
     global password, score
     print_pause("\nYou approach the computer terminal.")
@@ -50,6 +57,7 @@ def computer_terminal():
         score += 5
         call_for_help()
 
+# Function for the toolbox scene
 def toolbox():
     global score
     global multitool
@@ -70,6 +78,7 @@ def toolbox():
         print_pause("Invalid choice, try again.")
         toolbox()
 
+# Function to handle hacking the system
 def hack_system():
     global password, score
     print_score(score)
@@ -86,6 +95,7 @@ def hack_system():
         print_pause("Access denied. The system remains locked.")
         main_hallway()
 
+# Function to handle calling for help
 def call_for_help():
     global score
     print_score(score)
@@ -95,6 +105,7 @@ def call_for_help():
     score += 5
     control_room()
 
+# Function for the control room scene
 def control_room():
     global score
     print_pause("\nYou head to the control room.")
@@ -107,6 +118,7 @@ def control_room():
         score += 15
         fix_panel()
 
+# Function to handle pulling the lever
 def pull_lever():
     global score
     print_score(score)
@@ -117,23 +129,25 @@ def pull_lever():
     print_pause(f"Your final score is: {score}")
     play_again()
 
+# Function to handle fixing the panel
 def fix_panel():
     global score
     global multitool
     print_score(score)
     print_pause("\nYou open the panel and see a tangle of wires.")
     print_pause("You need to reconnect the wires correctly to regain control.")
-    if multitool == True:
+    if multitool:
         print_pause("Using the multitool, you carefully reconnect the wires.")
         print_pause("The system reboots and you regain control of the ISS.")
         print_pause("The ISS is safe, and you have averted the disaster.")
         print_pause(f"Your final score is: {score}")
         play_again()
     else:
-        print_pause("The wires are too complex to understand on you own.")
+        print_pause("The wires are too complex to understand on your own.")
         print_pause("You will need a multitool to fix it.(Hint: You can find one in the toolbox)")
         main_hallway()
         
+# Function to ask the player if they want to play again
 def play_again():
     choice = input("Do you want to play again? (yes/no) ").lower()
     if choice == 'yes':
@@ -142,6 +156,7 @@ def play_again():
         print_pause("Thank you for playing! Goodbye.")
         exit()
 
+# Main function to start the game
 def main():
     global score, password, multitool
     score = 0
@@ -150,5 +165,6 @@ def main():
     intro()
     main_hallway()
 
+# Start the game
 if __name__ == "__main__":
     main()
